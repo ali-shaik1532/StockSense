@@ -8,7 +8,7 @@
         <h1>Welcome back, ${user.name.split(' ')[0]} <span class="live-dot" title="Live"></span></h1>
         <div class="subtitle">Real-time snapshot of inventory operations</div>
       </div>
-      <button class="btn secondary" id="verifyBtn">🔒 Verify Ledger Integrity</button>
+      <button class="btn secondary" id="verifyBtn">${Icon.lock(14)} Verify Ledger Integrity</button>
     </div>
 
     <div id="verifyResult"></div>
@@ -44,7 +44,7 @@
   await loadKPIs();
   await loadDocuments();
 
-  // Realtime: whenever backend emit stock change, refresh KPIs + table live.
+  // Realtime: whenever backend emits a stock change, refresh KPIs + table live.
   const socket = io('http://localhost:4000');
   socket.on('stock:changed', () => { loadKPIs(); loadDocuments(); });
 
@@ -111,9 +111,9 @@
     try {
       const result = await apiRequest('/ledger/verify');
       if (result.is_valid) {
-        resultEl.innerHTML = `<div class="success-box">✅ Ledger integrity verified — all ${result.total_entries} entries form an unbroken cryptographic chain. No tampering detected.</div>`;
+        resultEl.innerHTML = `<div class="success-box">${Icon.check(13)} Ledger integrity verified — all ${result.total_entries} entries form an unbroken cryptographic chain. No tampering detected.</div>`;
       } else {
-        resultEl.innerHTML = `<div class="error-box">🚨 TAMPERING DETECTED in ${result.problems.length} entr${result.problems.length === 1 ? 'y' : 'ies'}:<br>` +
+        resultEl.innerHTML = `<div class="error-box">${Icon.alert(13)} Tampering detected in ${result.problems.length} entr${result.problems.length === 1 ? 'y' : 'ies'}:<br>` +
           result.problems.map(p => `Ledger #${p.ledger_id}: ${p.issue} — ${p.detail}`).join('<br>') + `</div>`;
       }
     } catch (err) {

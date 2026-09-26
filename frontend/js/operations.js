@@ -38,7 +38,7 @@
 
     <!-- New Document Modal -->
     <div class="modal-overlay hidden" id="modal">
-      <div class="modal" style="width:640px;">
+      <div class="modal" style="width:760px; max-width: 95vw;">
         <h2>New ${docType === 'internal' ? 'Internal Transfer' : docType.charAt(0).toUpperCase() + docType.slice(1)}</h2>
         <div id="modalErrors"></div>
         <form id="docForm">
@@ -51,7 +51,7 @@
           <label>Line Items</label>
           <div id="linesContainer"></div>
           <button type="button" class="btn secondary" id="addLineBtn" style="margin-bottom:16px;">+ Add Line</button>
-          <button type="button" class="btn secondary" id="scanBtn" style="margin-bottom:16px;margin-left:8px;">📷 Scan SKU</button>
+          <button type="button" class="btn secondary" id="scanBtn" style="margin-bottom:16px;margin-left:8px;">${Icon.camera(13)} Scan SKU</button>
 
           <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px;">
             <button type="button" class="btn secondary" id="cancelModalBtn">Cancel</button>
@@ -116,7 +116,7 @@
       <div class="form-group" style="flex:2;"><label>Product *</label><select class="line-product">${productOptions(prefillProductId)}</select></div>
       <div class="form-group"><label>${meta.isAdjustment ? 'Counted Qty *' : 'Quantity *'}</label><input type="number" class="line-qty" min="0" step="0.001" required></div>
       ${extraFields}
-      <button type="button" class="btn secondary" onclick="document.getElementById('${id}').remove()">✕</button>
+      <div class="form-group" style="flex: 0 0 auto; margin-bottom: 15px;"><button type="button" class="btn secondary" onclick="document.getElementById('${id}').remove()">${Icon.close(11)}</button></div>
     `;
     document.getElementById('linesContainer').appendChild(row);
   }
@@ -190,7 +190,7 @@
 
   function actionButtons(doc) {
     const next = { draft: 'waiting', waiting: 'ready', ready: 'done' }[doc.status];
-    const nextLabel = { waiting: 'Mark Waiting', ready: 'Mark Ready', done: 'Validate ✅' }[next];
+    const nextLabel = { waiting: 'Mark Waiting', ready: 'Mark Ready', done: 'Validate' }[next];
     let html = '';
     if (next) html += `<button class="btn secondary" onclick="transition(${doc.id}, '${next}')">${nextLabel}</button> `;
     if (['draft', 'waiting', 'ready'].includes(doc.status)) html += `<button class="btn danger" onclick="transition(${doc.id}, 'canceled')">Cancel</button>`;

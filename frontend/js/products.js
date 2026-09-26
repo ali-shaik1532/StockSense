@@ -1,4 +1,3 @@
-// ==========================================================
 (async function init() {
   const main = renderLayout('products');
   let categories = [];
@@ -12,7 +11,7 @@
 
     <div class="card">
       <div class="filters-bar">
-        <input type="text" id="search" placeholder="🔍 Search by name or SKU…" style="min-width:240px;">
+        <input type="text" id="search" placeholder="Search by name or SKU" style="min-width:240px;">
         <select id="f_category"><option value="">All Categories</option></select>
         <label style="display:flex;align-items:center;gap:6px;font-weight:500;">
           <input type="checkbox" id="f_lowstock" style="width:auto;"> Low stock only

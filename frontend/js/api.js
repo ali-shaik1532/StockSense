@@ -1,5 +1,5 @@
 // ==========================================================
-// Central API wrapper. Change API_BASE if backend runs
+// Central API wrapper. Change API_BASE if backend runs elsewhere.
 // ==========================================================
 const API_BASE = 'http://localhost:4000/api';
 

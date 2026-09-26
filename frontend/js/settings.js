@@ -10,9 +10,9 @@
       <h3 style="margin-top:0;">Add Warehouse</h3>
       <div id="whErrors"></div>
       <form id="whForm" class="form-row">
-        <div class="form-group"><label>Name *</label><input type="text" id="wh_name" required maxlength="100"></div>
-        <div class="form-group"><label>Address</label><input type="text" id="wh_address" maxlength="255"></div>
-        <div class="form-group" style="flex:0;align-self:flex-end;"><button class="btn" type="submit">Add</button></div>
+        <div class="form-group" style="flex: 1; min-width: 0;"><label>Name *</label><input type="text" id="wh_name" required maxlength="100"></div>
+        <div class="form-group" style="flex: 1; min-width: 0;"><label>Address</label><input type="text" id="wh_address" maxlength="255"></div>
+        <div class="form-group" style="flex: 0 0 auto; align-self: flex-end;"><button class="btn" type="submit">Add</button></div>
       </form>
     </div>
 
@@ -22,8 +22,8 @@
       <h3 style="margin-top:0;">Add Category</h3>
       <div id="catErrors"></div>
       <form id="catForm" class="form-row">
-        <div class="form-group"><label>Category Name *</label><input type="text" id="cat_name" required maxlength="100"></div>
-        <div class="form-group" style="flex:0;align-self:flex-end;"><button class="btn" type="submit">Add</button></div>
+        <div class="form-group" style="flex: 1; min-width: 0;"><label>Category Name *</label><input type="text" id="cat_name" required maxlength="100"></div>
+        <div class="form-group" style="flex: 0 0 auto; align-self: flex-end;"><button class="btn" type="submit">Add</button></div>
       </form>
     </div>
   `;
@@ -50,9 +50,9 @@
         <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;">
           ${locations.map(l => `<span class="badge draft">${l.name}</span>`).join('') || '<span style="color:var(--text-muted);font-size:13px;">No locations yet</span>'}
         </div>
-        <div class="form-row" style="margin-top:14px;">
-          <div class="form-group"><input type="text" placeholder="New location name (e.g. Rack C)" class="new-loc-input" maxlength="100"></div>
-          <div class="form-group" style="flex:0;"><button class="btn secondary add-loc-btn">+ Add Location</button></div>
+        <div class="form-row" style="margin-top:14px; align-items: flex-start;">
+          <div class="form-group" style="flex: 1; min-width: 0; margin-bottom: 0;"><input type="text" placeholder="New location name (e.g. Rack C)" class="new-loc-input" maxlength="100"></div>
+          <div class="form-group" style="flex: 0 0 auto; margin-bottom: 0;"><button type="button" class="btn secondary add-loc-btn">+ Add Location</button></div>
         </div>
       `;
       card.querySelector('.add-loc-btn').onclick = async () => {
