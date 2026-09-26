@@ -6,7 +6,7 @@ const { isNonEmptyString, isValidSku, isNonNegativeNumber, collectErrors } = req
 const router = express.Router();
 router.use(authRequired);
 
-// ---------------- LIST PRODUCTS (with stock-per-location + smart filters) ----------------
+// ---------------- LIST PRODUCTS (with stock-per-location+smart filters) ----------------
 router.get('/', async (req, res) => {
   const { search, category_id, low_stock } = req.query;
 

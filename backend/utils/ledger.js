@@ -3,11 +3,7 @@ const crypto = require('crypto');
 // Genesis hash — the "block 0" of the chain. Every fresh DB starts from this constant.
 const GENESIS_HASH = '0'.repeat(64);
 
-/**
- * Deterministically compute the hash for one ledger entry.
- * IMPORTANT: field order here must NEVER change once you've demoed / seeded data,
- * or every hash after that point will (correctly) fail verification.
- */
+
 function computeEntryHash({ id, product_id, location_id, movement_type, qty_change, resulting_balance, document_id, user_id, ts, prev_hash }) {
   const payload = [
     id,
