@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StockSense — Sign Up</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-brand-panel">
+      <div class="mark" id="brandMark"></div>
+      <h2>Built for inventory managers and warehouse staff.</h2>
+      <p>Set up your account to start recording receipts, deliveries, transfers, and stock counts across every warehouse you run.</p>
+    </div>
+    <div class="auth-form-panel">
+      <div class="auth-card">
+        <h1>Create an account</h1>
+        <div class="sub">Set up access to StockSense.</div>
+        <div id="errors"></div>
+
+        <form id="signupForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="name" placeholder="Jane Doe" required maxlength="100">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="you@company.com" required>
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <select id="role" required>
+              <option value="inventory_manager">Inventory Manager</option>
+              <option value="warehouse_staff">Warehouse Staff</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Min. 8 characters, 1 letter, 1 number" required minlength="8">
+          </div>
+          <button class="btn" type="submit">Create Account</button>
+        </form>
+
+        <div class="switch">Already have an account? <a href="index.html">Log in</a></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    document.getElementById('brandMark').innerHTML = Icon.crate(22) + ' StockSense';
+
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorsEl = document.getElementById('errors');
+      showFormErrors(errorsEl, []);
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const role = document.getElementById('role').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const data = await apiRequest('/auth/signup', { method: 'POST', body: { name, email, role, password } });
+        setSession(data.token, data.user);
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        showFormErrors(errorsEl, err.errors || [err.message]);
+      }
+    });
+  </script>
+</body>
+</html>

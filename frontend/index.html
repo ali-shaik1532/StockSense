@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StockSense — Log In</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-brand-panel">
+      <div class="mark" id="brandMark"></div>
+      <h2>One ledger your whole warehouse can trust.</h2>
+      <p>Receipts, deliveries, transfers, and adjustments — tracked in a single tamper-evident stock ledger, with every movement traceable back to who made it and when.</p>
+    </div>
+    <div class="auth-form-panel">
+      <div class="auth-card">
+        <h1>Log in</h1>
+        <div class="sub">Access your inventory dashboard.</div>
+        <div id="errors"></div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="you@company.com" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Your password" required>
+          </div>
+          <button class="btn" type="submit">Log In</button>
+        </form>
+
+        <div class="switch">
+          <a href="forgot-password.html">Forgot password?</a>
+        </div>
+        <div class="switch">
+          Don't have an account? <a href="signup.html">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    document.getElementById('brandMark').innerHTML = Icon.crate(22) + ' StockSense';
+
+    if (getToken()) window.location.href = 'dashboard.html';
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorsEl = document.getElementById('errors');
+      showFormErrors(errorsEl, []);
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      try {
+        const data = await apiRequest('/auth/login', { method: 'POST', body: { email, password } });
+        setSession(data.token, data.user);
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        showFormErrors(errorsEl, err.errors || [err.message]);
+      }
+    });
+  </script>
+</body>
+</html>
